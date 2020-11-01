@@ -1,0 +1,73 @@
+---
+# tasks file for aci.tenant.policies
+
+      - name: aci multisite vrf to template
+        mso_schema_template_vrf:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: "{{ item.schema }}"
+         template: "{{ item.template }}"
+         vrf: "{{ item.vrf }}"
+         state: present
+        with_items: "{{ vrfs }}"
+
+      - name: aci multisite bds to template
+        mso_schema_template_bd:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: "{{ item.schema }}"
+         template: "{{ item.template }}"
+         bd: "{{ item.bd }}"
+         layer2_stretch: no
+         intersite_bum_traffic: no
+         optimize_wan_bandwidth: no
+         layer2_unknown_unicast: flood
+         vrf: 
+          name: "{{ item.vrf }}"
+         state: present
+        with_items: "{{ bds }}"
+
+      - name: aci multisite app profiles to template
+        mso_schema_template_anp:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: "{{ item.schema }}"
+         template: "{{ item.template }}"
+         anp: "{{ item.anp }}"
+         state: present
+        with_items: "{{ aps }}"
+
+      - name: aci multisite epgs to template
+        mso_schema_template_anp_epg:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: "{{ item.schema }}"
+         template: "{{ item.template }}"
+         anp: "{{ item.anp }}"
+         preferred_group: yes
+         epg: "{{ item.epg }}"
+         bd:
+          name: "{{ item.bd }}"
+         vrf:
+          name: "{{ item.vrf }}"
+         state: present
+        with_items: "{{ epgs }}"
+
+      - name: deploy template
+        mso_schema_template_deploy:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: global
+         template: prod
+         state: deploy
+

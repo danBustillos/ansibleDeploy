@@ -1,0 +1,75 @@
+---
+# tasks file for aci.global.policies
+      - name: aci vlan pool
+        aci_vlan_pool:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          pool: "{{ item }}"
+          pool_allocation_mode: static
+          state: present
+        with_items: "{{ pool }}"
+
+      - name: aci vlan pool add vlan encap
+        aci_encap_pool_range:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no  
+          pool: "{{ item.pool }}"
+          pool_type: vlan
+          pool_allocation_mode: static
+          range_name: "{{ item.name }}"
+          range_start: "{{ item.start }}"
+          range_end: "{{ item.end }}"
+          allocation_mode: inherit
+          state: present
+        with_items: "{{ range }}"
+
+      - name: aci domain 
+        aci_domain: 
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no  
+          domain: "{{ item.domain }}"
+          domain_type: "{{ item.type }}"
+          state: present
+        with_items: "{{ domain_pool }}"
+
+
+      - name: aci pool to domain association
+        aci_domain_to_vlan_pool:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          domain: "{{ item.domain }}"
+          domain_type: "{{ item.type }}"
+          pool: "{{ item.pool }}"
+          pool_allocation_mode: static
+          state: present
+        with_items: "{{ domain_pool }}"
+
+      - name: aci attachable acess entity profile
+        aci_aep:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          aep: "{{ item }}"
+          state: present
+        with_items: "{{ aep }}"
+
+      - name: aci aep to domain association
+        aci_aep_to_domain:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          aep: "{{ item.aep }}"
+          domain: "{{ item.domain }}"
+          domain_type: "{{ item.type }}"
+          state: present
+        with_items: "{{ aep_domain }}"

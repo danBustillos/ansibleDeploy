@@ -1,0 +1,108 @@
+---
+# --------------------------------------------------------------------------------------------------
+# policy group input variables
+# --------------------------------------------------------------------------------------------------
+
+policyGroupVPC:
+  - {name: 'UCS010a_VPC', link: 'default', pcp: 'LACP-Active', cdp: 'CDP-ON', aep: 'GLOBAL_AEP'}
+  - {name: 'UCS010b_VPC', link: 'default', pcp: 'LACP-Active', cdp: 'CDP-ON', aep: 'GLOBAL_AEP'}
+  - {name: 'UCS020a_VPC', link: 'default', pcp: 'LACP-Active', cdp: 'CDP-ON', aep: 'GLOBAL_AEP'}
+  - {name: 'UCS020b_VPC', link: 'default', pcp: 'LACP-Active', cdp: 'CDP-ON', aep: 'GLOBAL_AEP'}
+  - {name: 'UCS_Telecom_a_VPC', link: 'default', pcp: 'LACP-Active', cdp: 'CDP-ON', aep: 'GLOBAL_AEP'}
+  - {name: 'UCS_Telecom_b_VPC', link: 'default', pcp: 'LACP-Active', cdp: 'CDP-ON', aep: 'GLOBAL_AEP'}
+  - {name: 'UCS_BankDR_a_VPC', link: 'default', pcp: 'LACP-Active', cdp: 'CDP-ON', aep: 'GLOBAL_AEP'}
+  - {name: 'UCS_BankDR_b_VPC', link: 'default', pcp: 'LACP-Active', cdp: 'CDP-ON', aep: 'GLOBAL_AEP'}
+
+# access_policy_group:
+#   - access_pol_01
+#   - access_pol_02
+
+# --------------------------------------------------------------------------------------------------
+# port selector input variables
+# --------------------------------------------------------------------------------------------------
+
+selector:
+ - {int_prof: 'L101', port_sel: 'UCS010a', leafs: 'leaf-101', type: 'vpc', from: '49', to: '49', pg: 'UCS010a_VPC'}
+ - {int_prof: 'L101', port_sel: 'UCS010b', leafs: 'leaf-101', type: 'vpc', from: '50', to: '50', pg: 'UCS010b_VPC'}
+ - {int_prof: 'L102', port_sel: 'UCS010a', leafs: 'leaf-102', type: 'vpc', from: '49', to: '49', pg: 'UCS010a_VPC'}
+ - {int_prof: 'L102', port_sel: 'UCS010b', leafs: 'leaf-102', type: 'vpc', from: '50', to: '50', pg: 'UCS010b_VPC'}
+ - {int_prof: 'L103', port_sel: 'UCS020a', leafs: 'leaf-103', type: 'vpc', from: '49', to: '49', pg: 'UCS020a_VPC'}
+ - {int_prof: 'L103', port_sel: 'UCS020b', leafs: 'leaf-103', type: 'vpc', from: '50', to: '50', pg: 'UCS020b_VPC'}
+ - {int_prof: 'L104', port_sel: 'UCS020a', leafs: 'leaf-104', type: 'vpc', from: '49', to: '49', pg: 'UCS020a_VPC'}
+ - {int_prof: 'L104', port_sel: 'UCS020b', leafs: 'leaf-104', type: 'vpc', from: '50', to: '50', pg: 'UCS020b_VPC'}
+ - {int_prof: 'L101', port_sel: 'UCS_Telecom_a', leafs: 'leaf-101', type: 'vpc', from: '41', to: '41', pg: 'UCS_Telecom_a_VPC'}
+ - {int_prof: 'L101', port_sel: 'UCS_Telecom_b', leafs: 'leaf-101', type: 'vpc', from: '42', to: '42', pg: 'UCS_Telecom_b_VPC'}
+ - {int_prof: 'L102', port_sel: 'UCS_Telecom_a', leafs: 'leaf-102', type: 'vpc', from: '41', to: '41', pg: 'UCS_Telecom_a_VPC'}
+ - {int_prof: 'L102', port_sel: 'UCS_Telecom_b', leafs: 'leaf-102', type: 'vpc', from: '42', to: '42', pg: 'UCS_Telecom_b_VPC'}
+ - {int_prof: 'L101', port_sel: 'UCS_BankDR_a', leafs: 'leaf-101', type: 'vpc', from: '43', to: '43', pg: 'UCS_BankDR_a_VPC'}
+ - {int_prof: 'L101', port_sel: 'UCS_BankDR_b', leafs: 'leaf-101', type: 'vpc', from: '44', to: '44', pg: 'UCS_BankDR_b_VPC'}
+ - {int_prof: 'L102', port_sel: 'UCS_BankDR_a', leafs: 'leaf-102', type: 'vpc', from: '43', to: '43', pg: 'UCS_BankDR_a_VPC'}
+ - {int_prof: 'L102', port_sel: 'UCS_BankDR_b', leafs: 'leaf-102', type: 'vpc', from: '44', to: '44', pg: 'UCS_BankDR_b_VPC'}
+
+
+ 
+staticPorts:
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG20', encap: '20', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG20', encap: '20', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG20', encap: '20', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG20', encap: '20', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG20', encap: '20', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG20', encap: '20', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG20', encap: '20', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG20', encap: '20', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG24', encap: '24', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG24', encap: '24', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG24', encap: '24', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG24', encap: '24', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG24', encap: '24', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG24', encap: '24', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG24', encap: '24', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG24', encap: '24', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG30', encap: '30', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG30', encap: '30', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG30', encap: '30', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG30', encap: '30', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG30', encap: '30', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG30', encap: '30', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG30', encap: '30', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG30', encap: '30', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG31', encap: '31', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG31', encap: '31', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG31', encap: '31', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG31', encap: '31', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG31', encap: '31', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG31', encap: '31', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG31', encap: '31', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG31', encap: '31', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG32', encap: '32', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG32', encap: '32', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG32', encap: '32', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG32', encap: '32', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG32', encap: '32', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG32', encap: '32', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG32', encap: '32', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG32', encap: '32', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG33', encap: '33', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG33', encap: '33', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG33', encap: '33', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG33', encap: '33', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG33', encap: '33', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG33', encap: '33', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG33', encap: '33', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG33', encap: '33', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG34', encap: '34', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG34', encap: '34', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG34', encap: '34', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG34', encap: '34', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG34', encap: '34', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG34', encap: '34', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG34', encap: '34', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG34', encap: '34', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG221', encap: '221', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG221', encap: '221', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG221', encap: '221', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG221', encap: '221', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_a_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG221', encap: '221', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS010b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG221', encap: '221', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '103-104', ints: 'UCS020b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG221', encap: '221', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_Telecom_b_VPC'}
+  - {tn: 'PREMIER', ap: 'Watertown', epg: 'EPG221', encap: '221', deploy: 'lazy', mode: 'trunk', type: 'vpc', id: '1', leafs: '101-102', ints: 'UCS_BankDR_b_VPC'}

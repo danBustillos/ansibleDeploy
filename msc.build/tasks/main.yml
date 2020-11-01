@@ -1,0 +1,86 @@
+---
+# tasks file for msc.build
+
+      - name: add vrf to template
+        mso_schema_template_vrf:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: "{{ item.schema }}"
+         template: "{{ item.template }}"
+         vrf: "{{ item.vrf }}"
+         state: present
+        with_items: "{{ vrfs }}"
+
+      - name: add bds to template
+        mso_schema_template_bd:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: "{{ item.schema }}"
+         template: "{{ item.template }}"
+         bd: "{{ item.bd }}"
+         layer2_stretch: yes
+         intersite_bum_traffic: yes
+         optimize_wan_bandwidth: yes
+         layer2_unknown_unicast: flood
+         vrf: 
+          name: "{{ item.vrf }}"
+         state: present
+        with_items: "{{ bds }}"
+
+      - name: add app profiles
+        mso_schema_template_anp:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: "{{ item.schema }}"
+         template: "{{ item.template }}"
+         state: present
+        with_items: "{{ aps }}"
+
+      - name: add epgs to template
+        mso_schema_template_anp_epg:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: "{{ item.schema }}"
+         template: "{{ item.template }}"
+         anp: "{{ item.anp }}"
+         preferred_group: yes
+         epg: "{{ item.epg }}"
+         bd:
+          name: "{{ item.bd }}"
+         vrf:
+          name: "{{ item.vrf }}"
+         state: present
+        with_items: "{{ epgs }}"
+
+      - name: add physical domain to a list of EPGs 
+        aci_epg_to_domain:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no                
+          state: present
+          tenant: "{{ item.tn }}"
+          ap: "{{ item.anp }}"
+          epg: "{{ item.epg }}"
+          domain: "{{ item.domain }}"
+          domain_type: phys
+        with_items: "{{ domain }}"
+
+      - name: deploy 
+        mso_schema_template_deploy:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no 
+         schema: "{{ item.schema }}"
+         template: "{{ item.template }}"
+         state: deploy
+        with_items: "{{ deploy }}"

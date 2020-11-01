@@ -1,0 +1,258 @@
+---
+# tasks file for aci.fabric.policies
+      - name: aci pod policy group
+        aci_rest:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          path: /api/mo/uni.json
+          method: post
+          content:
+            {
+                "totalCount": "1",
+                "imdata": [
+                    {
+                        "fabricPodPGrp": {
+                            "attributes": {
+                                "descr": "",
+                                "dn": "uni/fabric/funcprof/podpgrp-main",
+                                "name": "main",
+                                "nameAlias": "",
+                                "ownerKey": "",
+                                "ownerTag": ""
+                            },
+                            "children": [
+                                {
+                                    "fabricRsTimePol": {
+                                        "attributes": {
+                                            "tnDatetimePolName": "default"
+                                        }
+                                    }
+                                },
+                                {
+                                    "fabricRsSnmpPol": {
+                                        "attributes": {
+                                            "tnSnmpPolName": "default"
+                                        }
+                                    }
+                                },
+                                {
+                                    "fabricRsPodPGrpIsisDomP": {
+                                        "attributes": {
+                                            "tnIsisDomPolName": "default"
+                                        }
+                                    }
+                                },
+                                {
+                                    "fabricRsPodPGrpCoopP": {
+                                        "attributes": {
+                                            "tnCoopPolName": "default"
+                                        }
+                                    }
+                                },
+                                {
+                                    "fabricRsPodPGrpBGPRRP": {
+                                        "attributes": {
+                                            "tnBgpInstPolName": "default"
+                                        }
+                                    }
+                                },
+                                {
+                                    "fabricRsCommPol": {
+                                        "attributes": {
+                                            "tnCommPolName": "default"
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+
+
+      - name: associate pod policy to pod profile
+        aci_rest:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          path: /api/mo/uni.json
+          method: post
+          content:
+            {
+                "totalCount": "1",
+                "imdata": [
+                    {
+                        "fabricPodP": {
+                            "attributes": {
+                                "descr": "",
+                                "dn": "uni/fabric/podprof-default",
+                                "name": "default",
+                                "nameAlias": "",
+                                "ownerKey": "",
+                                "ownerTag": ""
+                            },
+                            "children": [
+                                {
+                                    "fabricPodS": {
+                                        "attributes": {
+                                            "descr": "",
+                                            "name": "default",
+                                            "nameAlias": "",
+                                            "ownerKey": "",
+                                            "ownerTag": "",
+                                            "type": "ALL"
+                                        },
+                                        "children": [
+                                            {
+                                                "fabricRsPodPGrp": {
+                                                    "attributes": {
+                                                        "tDn": "uni/fabric/funcprof/podpgrp-main"
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+
+
+
+      - name: aci route reflector policy
+        aci_rest:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          path: /api/mo/uni.json
+          method: post
+          content:
+            {
+                "totalCount": "1",
+                "imdata": [
+                    {
+                        "bgpInstPol": {
+                            "attributes": {
+                                "descr": "",
+                                "dn": "uni/fabric/bgpInstP-default",
+                                "name": "default",
+                                "nameAlias": "",
+                                "ownerKey": "",
+                                "ownerTag": ""
+                            },
+                            "children": [
+                                {
+                                    "bgpRRP": {
+                                        "attributes": {
+                                            "descr": "",
+                                            "name": "",
+                                            "nameAlias": ""
+                                        },
+                                        "children": [
+                                            {
+                                                "bgpRRNodePEp": {
+                                                    "attributes": {
+                                                        "descr": "",
+                                                        "id": "901",
+                                                        "nameAlias": "",
+                                                        "podId": "1"
+                                                    }
+                                                }
+                                            },
+                                            {
+                                                "bgpRRNodePEp": {
+                                                    "attributes": {
+                                                        "descr": "",
+                                                        "id": "902",
+                                                        "nameAlias": "",
+                                                        "podId": "1"
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                },
+                                {
+                                    "bgpExtRRP": {
+                                        "attributes": {
+                                            "descr": "",
+                                            "name": "",
+                                            "nameAlias": ""
+                                        }
+                                    }
+                                },
+                                {
+                                    "bgpAsP": {
+                                        "attributes": {
+                                            "asn": "65001",
+                                            "descr": "",
+                                            "name": "",
+                                            "nameAlias": ""
+                                        }
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }
+
+
+      - name: aci ntp policy
+        aci_rest:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          path: /api/mo/uni.json
+          method: post
+          content:
+            {
+                "totalCount": "1",
+                "imdata": [
+                    {
+                        "datetimePol": {
+                            "attributes": {
+                                "adminSt": "enabled",
+                                "authSt": "disabled",
+                                "descr": "",
+                                "dn": "uni/fabric/time-default",
+                                "name": "default",
+                                "nameAlias": "",
+                                "ownerKey": "",
+                                "ownerTag": ""
+                            },
+                            "children": [
+                                {
+                                    "datetimeNtpProv": {
+                                        "attributes": {
+                                            "descr": "",
+                                            "keyId": "0",
+                                            "maxPoll": "6",
+                                            "minPoll": "4",
+                                            "name": "10.1.11.10",
+                                            "nameAlias": "",
+                                            "preferred": "no"
+                                        },
+                                        "children": [
+                                            {
+                                                "datetimeRsNtpProvToEpg": {
+                                                    "attributes": {
+                                                        "tDn": "uni/tn-mgmt/mgmtp-default/oob-default"
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                ]
+            }

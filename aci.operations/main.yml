@@ -1,0 +1,27 @@
+---
+- name: aci.policy.group
+  hosts: apic
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: create aci policy group
+      include_role:
+        name: aci.policy.group
+
+- name: aci.port.selector
+  hosts: apic
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: create aci port selector
+      include_role:
+        name: aci.port.selector
+
+- name: aci.port.static.mapping
+  hosts: apic
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: create aci port static mapping
+      include_role:
+        name: aci.port.static.mapping

@@ -1,0 +1,12 @@
+---
+# tasks file for snapShot
+      - name: creates snapshot prior to provisions
+        aci_config_snapshot:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          export_policy: config_backup
+          max_count:  10
+          description: Nov-7-2020 ansibleSnapshot
+          state: present

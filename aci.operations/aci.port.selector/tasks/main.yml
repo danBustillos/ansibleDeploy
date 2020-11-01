@@ -1,0 +1,19 @@
+---
+# tasks file for aci.port.selector
+
+      - name: assign ports to interface profiles 
+        aci_access_port_to_interface_policy_leaf_profile:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no 
+          leaf_interface_profile: "{{ item.int_prof }}"
+          access_port_selector: "{{ item.port_sel }}"
+          leaf_port_blk: "{{ item.leafs }}"
+          interface_type: "{{ item.type }}"
+          from_card: 1
+          from_port: "{{ item.from }}"
+          to_port: "{{ item.to }}"
+          policy_group: "{{ item.pg }}"
+          state: present
+        with_items: "{{ selector }}"

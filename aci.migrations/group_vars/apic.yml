@@ -1,0 +1,69 @@
+---
+# --------------------------------------------------------------------------------------------------
+# migration gateway input variables
+# --------------------------------------------------------------------------------------------------
+add_gateway1:
+  - name: assign gw to bd01
+    tn: prod
+    bd: bd01
+    gw: 10.7.0.1
+    mask: 24
+
+add_gateway2:
+  - name: assign gw to  bd02
+    tn: prod
+    bd: bd02
+    gw: 10.7.1.1
+    mask: 24
+
+add_gateway3:
+  - name: assign gw to  bd03
+    tn: prod
+    bd: bd03
+    gw: 10.7.2.1
+    mask: 24
+
+# --------------------------------------------------------------------------------------------------
+# migration l3out  input variables
+# --------------------------------------------------------------------------------------------------
+
+add_l3out1:
+  - name: assign bd01 to l3out
+    tn: prod
+    bd: bd01
+    l3out: l3out-name
+
+add_l3out2:
+  - name: assign bd02 to l3out
+    tn: prod
+    bd: bd02
+    l3out: l3out-name
+
+add_l3out3:
+  - name: assign bd03 to l3out
+    tn: prod
+    bd: bd03
+    l3out: l3out-name
+
+
+# --------------------------------------------------------------------------------------------------
+# migration mac input variables
+# --------------------------------------------------------------------------------------------------
+
+add_mac1:
+  - name: assign mac to bd01
+    tn: prod
+    bd: bd01
+    mac: 00:00:0c:9f:f0:da
+
+add_mac2:
+  - name: assign mac to bd02
+    tn: prod
+    bd: bd02
+    mac: 00:00:0c:9f:f0:da
+
+add_mac3:
+  - name: assign mac to bd03
+    tn: prod
+    bd: bd03
+    mac: 00:00:0c:9f:f0:da

@@ -1,0 +1,28 @@
+---
+
+    - name: capturing arp information for svi1
+      jnos_command:
+        commands: show arp interface {{ svi1 }}
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+
+    - name: capturing arp information for svi1
+      jnos_command:
+        commands: show arp interface {{ svi1 }}
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+
+    - name: Saving running config to txt file
+      copy: content="{{ print_output.stdout[0] }}" dest="/home/Ansible/file.arp/{{ svi1 }}.txt"
+
+    - name: capturing arp information for svi3
+      jnos_command:
+        commands: show arp interface {{ svi3 }}
+
+      register: print_output
+    -  debug: var=print_output.stdout_lines
+
+    - name: Saving running config to txt file
+      copy: content="{{ print_output.stdout[0] }}" dest="/home/Ansible/file.arp/{{ svi3 }}.txt"

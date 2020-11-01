@@ -1,0 +1,62 @@
+---
+# tasks file for aci.access.policies
+      - name: aci interface profiles
+        aci_interface_policy_leaf_profile:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no
+         leaf_interface_profile: "{{ item }}"
+         state: present
+        with_items: "{{ interface_profiles }}"
+
+
+      - name: aci leaf profiles
+        aci_switch_policy_leaf_profile:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no
+         leaf_profile: "{{ item }}"
+         state: present
+        with_items: "{{ leaf_profiles }}"
+
+      - name: aci leaf profile node selector
+        aci_switch_leaf_selector:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no
+         leaf_profile: "{{ item.leaf_profiles }}"
+         leaf:  "{{ item.leaf }}"
+         leaf_node_blk: "{{ item.node }}"
+         from: "{{ item.from }}"
+         to: "{{ item.to }}"
+         state: present
+        with_items: "{{ leaf_selector }}"
+
+
+      - name: aci interface profile assigned to leaf profile
+        aci_interface_selector_to_switch_policy_leaf_profile:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no
+         leaf_profile: "{{ item.leaf_profiles }}"
+         interface_selector: "{{ item.int_profiles }}"
+         state: present
+        with_items: "{{ profile_main }}"
+
+
+      - name: aci  vPC protection groups for vpc pairings
+        aci_switch_policy_vpc_protection_group:
+         host: "{{ inventory_hostname }}"
+         username: "{{ username }}"
+         password: "{{ password }}"
+         validate_certs: no
+         protection_group: "{{ item.pg }}"
+         protection_group_id: "{{ item.grp_ids }}"
+         switch_1_id: "{{ item.sw1_ids }}"
+         switch_2_id: "{{ item.sw2_ids }}"
+         state: present
+        with_items: "{{ vpc_main }}"

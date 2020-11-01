@@ -1,0 +1,63 @@
+---
+- name: pre-check role to gather vlan arp information prior to migration
+  hosts: jnos
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: logging into jnos and obtaining vlan arp information
+      include_role:
+        name: pre_check
+
+- name: jnos vlan gateway role to shutdown the first svi of the change
+  hosts: jnos
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: logging into jnos and shutting down the vlan for the first svi
+      include_role:
+        name: gateway1
+
+- name: aci bridge domain migration role to enable network services for the first bridge domain of the change
+  hosts: apic
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: logging into aci and configuring bridge domain1
+      include_role:
+        name: aci_bd1
+
+- name: jnos vlan gateway role to shutdown the second svi of the change
+  hosts: jnos
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: logging into jnos and shutting down the vlan for the first svi
+      include_role:
+        name: gateway2
+
+- name: aci bridge domain migration role to enable network services for the first bridge domain of the change
+  hosts: apic
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: logging into aci and configuring bridge domain2
+      include_role:
+        name: aci_bd2
+
+- name: jnos vlan gateway role to shutdown the third svi of the change
+  hosts: jnos
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: logging into jnos and shutting down the vlan for the first svi
+      include_role:
+        name: gateway3
+
+- name: aci bridge domain migration role to enable network services for the first bridge domain of the change
+  hosts: apic
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: logging into aci and configuring bridge domain3
+      include_role:
+        name: aci_bd3

@@ -1,0 +1,36 @@
+---
+# --------------------------------------------------------------------------------------------------
+# multisite template input variables
+# --------------------------------------------------------------------------------------------------
+
+vrfs:
+  - {schema: 'global', template: 'prod', vrf: 'prod' }
+  - {schema: 'global', template: 'dmz', vrf: 'dmz' }
+
+bds:
+  - {schema: 'global', template: 'prod', bd: 'bd01', vrf: 'prod' }
+  - {schema: 'global', template: 'prod', bd: 'bd02', vrf: 'prod' }
+  - {schema: 'global', template: 'dmz', bd: 'bd03', vrf: 'dmz' }
+  - {schema: 'global', template: 'dmz', bd: 'bd04', vrf: 'dmz' }
+
+aps:
+  - {schema: 'global', template: 'prod', anp: 'prod' }
+  - {schema: 'global', template: 'dmz', anp: 'dmz' }
+
+epgs:
+  - {schema: 'global', template: 'prod', anp: 'prod', epg: 'epg01', bd: 'bd01', vrf: 'prod' }
+  - {schema: 'global', template: 'prod', anp: 'prod', epg: 'epg02', bd: 'bd02', vrf: 'prod' }
+  - {schema: 'global', template: 'dmz', anp: 'dmz', epg: 'epg03', bd: 'bd03', vrf: 'dmz' }
+  - {schema: 'global', template: 'dmz', anp: 'dmz', epg: 'epg04', bd: 'bd04', vrf: 'dmz' }
+
+domain:
+  - {tn: 'prod', anp: 'prod', epg: 'epg01', domain: 'phy-dom'}
+  - {tn: 'prod', anp: 'prod', epg: 'epg02', domain: 'phy-dom'}
+  - {tn: 'prod', anp: 'prod', epg: 'epg03', domain: 'phy-dom'}
+  - {tn: 'prod', anp: 'prod', epg: 'epg04', domain: 'phy-dom'}
+  - {tn: 'prod', anp: 'prod', epg: 'epg05', domain: 'phy-dom'}
+
+deploy:
+  - {schema: 'global', template: 'prod'}
+  - {schema: 'global', template: 'dmz'}
+

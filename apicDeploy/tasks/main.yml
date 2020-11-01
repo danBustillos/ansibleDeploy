@@ -1,0 +1,52 @@
+---
+# tasks file for aci.policy.group
+- name: aci vpc policy group
+  aci_interface_policy_leaf_policy_group:
+    host: "{{ inventory_hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    validate_certs: no
+    lag_type: link
+    policy_group: "{{ item.name }}"
+    link_level_policy: "{{ item.link }}"
+    port_channel_policy: "{{ item.pcp }}"
+    cdp_policy: "{{ item.cdp }}"
+    aep: "{{ item.aep }}"
+    state: present
+  with_items: "{{ policyGroupVPC }}"
+
+- name: assign ports to interface profiles 
+  aci_access_port_to_interface_policy_leaf_profile:
+    host: "{{ inventory_hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    validate_certs: no 
+    leaf_interface_profile: "{{ item.int_prof }}"
+    access_port_selector: "{{ item.port_sel }}"
+    leaf_port_blk: "{{ item.leafs }}"
+    interface_type: "{{ item.type }}"
+    from_card: 1
+    from_port: "{{ item.from }}"
+    to_port: "{{ item.to }}"
+    policy_group: "{{ item.pg }}"
+    state: present
+  with_items: "{{ selector }}"
+
+- name: aci static mapping
+  aci_static_binding_to_epg:
+    host: "{{ inventory_hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    validate_certs: no  
+    tenant: "{{ item.tn }}"
+    ap: "{{ item.ap }}"
+    epg: "{{ item.epg }}"
+    encap_id: "{{ item.encap }}"
+    deploy_immediacy: "{{ item.deploy }}"
+    interface_mode: "{{ item.mode }}"
+    interface_type: "{{ item.type }}"
+    pod_id: "{{ item.id }}"
+    leafs: "{{ item.leafs }}"
+    interface: "{{ item.ints }}"
+    state: absent
+  with_items: "{{ staticPorts }}"

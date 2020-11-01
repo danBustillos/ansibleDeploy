@@ -1,0 +1,10 @@
+---
+- name: msc build role
+  hosts: msc
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: create msc template policies
+      include_role:
+        name: msc.build
+

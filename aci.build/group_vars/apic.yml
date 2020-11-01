@@ -1,0 +1,61 @@
+---
+# --------------------------------------------------------------------------------------------------
+# access policy input variables
+# --------------------------------------------------------------------------------------------------
+interface_profiles:
+ - leaf101
+ - leaf102
+
+
+leaf_profiles:
+ - leaf101
+ - leaf102
+
+
+leaf_selector:
+  - {leaf_profiles: 'leaf101', leaf: 'leaf101', node: '101', from: '101', to: '101'}
+  - {leaf_profiles: 'leaf102', leaf: 'leaf102', node: '102', from: '102', to: '102'}
+
+
+profile_main:
+  - {int_profiles: 'leaf101', leaf_profiles: 'leaf101'}
+  - {int_profiles: 'leaf102', leaf_profiles: 'leaf102'}
+
+
+vpc_main:
+  - {pg: 'vpc_101_102', grp_ids: '101', sw1_ids: '101', sw2_ids: '102'}
+  - {pg: 'vpc_103_104', grp_ids: '103', sw1_ids: '103', sw2_ids: '104'}
+
+# --------------------------------------------------------------------------------------------------
+# global policy input variables
+# --------------------------------------------------------------------------------------------------
+
+pool:
+ - global
+ - msite
+
+range:
+  - {pool: 'global', name: 'global', start: '10', end: '100'}
+  - {pool: 'msite', name: 'msite', start: '4', end: '4'}
+
+domains:
+ - global
+ - msite
+
+domain_pool:
+  - {domain: 'global', type: 'phys', pool: 'global'}
+  - {domain: 'msite', type: 'l3dom', pool: 'msite'}
+
+aep:
+ - global
+ - msite
+
+aep_domain:
+  - {aep: 'global', domain: 'global', type: 'phys'}
+  - {aep: 'msite', domain: 'msite', type: 'l3dom'}
+
+
+
+
+
+

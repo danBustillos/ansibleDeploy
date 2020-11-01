@@ -1,0 +1,8 @@
+---
+# tasks file for gateway2
+    - name: shutting down svi of the change
+      junos_interface:
+        name: "{{ item }}"
+        enabled: False
+        description: SVI MOVED TO ACI DO NOT ENABLE
+      with_items: "{{ svi2 }}"

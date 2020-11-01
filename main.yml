@@ -1,0 +1,19 @@
+---
+- name: snapShotDeploy
+  hosts: watertown
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: snapShot create
+      include_role:
+        name: snapShot
+
+- name: apicPolicyDeploy
+  hosts: watertown
+  gather_facts: no
+  connection: local
+  tasks:
+    - name: apicDeploy
+      include_role:
+        name: apicDeploy
+

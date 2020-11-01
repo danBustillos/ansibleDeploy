@@ -1,0 +1,20 @@
+---
+# tasks file for aci.port.static.mapping
+      - name: aci static mapping
+        aci_static_binding_to_epg:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no  
+          tenant: "{{ item.tn }}"
+          ap: "{{ item.ap }}"
+          epg: "{{ item.epg }}"
+          encap_id: "{{ item.encap }}"
+          deploy_immediacy: "{{ item.deploy }}"
+          interface_mode: "{{ item.mode }}"
+          interface_type: "{{ item.type }}"
+          pod_id: "{{ item.id }}"
+          leafs: "{{ item.leafs }}"
+          interface: "{{ item.ints }}"
+          state: absent
+        with_items: "{{ static_bind }}"

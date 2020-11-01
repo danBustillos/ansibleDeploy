@@ -1,0 +1,45 @@
+---
+# tasks file for aci_bd1
+---
+    - name: assign default gw ip to bridge domain1
+      aci_bd_subnet:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: no
+        state: present
+        tenant: "{{ item.tn }}"
+        bd: "{{ item.bd }}"
+        gateway: "{{ item.gw }}"
+        scope: public
+        mask: "{{ item.mask }}"
+      with_items: "{{ add_gateway1 }}"
+
+
+    - name: assign bd1 to layer 3 out 
+      aci_bd_to_l3out:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: no
+        state: present
+        tenant: "{{ item.tn }}"
+        bd: "{{ item.bd }}"
+        l3out: "{{ item.l3out }}"
+      with_items: "{{ add_l3out1 }}"
+
+
+    - name: assign bd1 with no flood, custom mac, and ensure unicast routing is enabled
+      aci_bd:
+        host: "{{ inventory_hostname }}"
+        username: "{{ username }}"
+        password: "{{ password }}"
+        validate_certs: no
+        state: present
+        tenant: "{{ item.tn }}"
+        bd: "{{ item.bd }}"
+        arp_flooding: yes
+        l2_unknown_unicast: flood
+        mac_address: "{{ item.mac }}"
+        enable_routing: yes
+      with_items: "{{ add_mac1 }}"

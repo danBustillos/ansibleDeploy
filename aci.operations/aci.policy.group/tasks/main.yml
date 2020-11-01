@@ -1,0 +1,29 @@
+---
+# tasks file for aci.policy.group
+- name: aci vpc policy group
+  aci_interface_policy_leaf_policy_group:
+    host: "{{ inventory_hostname }}"
+    username: "{{ username }}"
+    password: "{{ password }}"
+    validate_certs: no
+    lag_type: link
+    policy_group: "{{ item.name }}"
+    link_level_policy: "{{ item.link }}"
+    port_channel_policy: "{{ item.pcp }}"
+    cdp_policy: "{{ item.cdp }}"
+    lldp_policy: "{{ item.lldp }}"
+    aep: "{{ item.aep }}"
+    state: present
+  with_items: "{{ vpc_policy_group }}"
+
+# - name: aci access policy group
+#   aci_interface_policy_leaf_policy_group:
+#     host: "{{ inventory_hostname }}"
+#     username: "{{ username }}"
+#     password: "{{ password }}"
+#     validate_certs: no               
+#     lag_type: leaf
+#     policy_group: "{{ item }}"
+#     link_level_policy: default
+#     state: present
+#   with_items: "{{ access_policy_group }}"

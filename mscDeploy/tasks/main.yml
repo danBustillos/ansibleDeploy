@@ -1,0 +1,22 @@
+---
+# tasks file for mscDeploy
+# tasks file for msc.staticPort
+      - name: create static port mapping for epgs to interfaces
+        mso_schema_site_anp_epg_staticport:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no                
+          state: present
+          schema: "{{ item.schema }}"
+          site: "{{ item.site }}"
+          template: "{{ item.template }}"
+          anp: "{{ item.anp }}"
+          epg: "{{ item.epg }}"
+          type: "{{ item.type }}"
+          pod: "{{ item.pod }}"
+          leaf: "{{ item.leaf }}"
+          path: "{{ item.path }}"
+          vlan: "{{ item.vlan }}"
+          deployment_immediacy: immediate
+        with_items: "{{ staticPorts }}"

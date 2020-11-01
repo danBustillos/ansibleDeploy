@@ -1,0 +1,25 @@
+---
+# --------------------------------------------------------------------------------------------------
+# multisite template input variables
+# --------------------------------------------------------------------------------------------------
+
+vrfs:
+  - {schema: 'global', template: 'prod', vrf: 'prod' }
+  - {schema: 'global', template: 'nonprod', vrf: 'nonprod' }
+
+bds:
+  - {schema: 'global', template: 'prod', bd: 'bd01', vrf: 'prod' }
+  - {schema: 'global', template: 'prod', bd: 'bd02', vrf: 'prod' }
+  - {schema: 'global', template: 'nonprod', bd: 'bd03', vrf: 'nonprod' }
+  - {schema: 'global', template: 'nonprod', bd: 'bd04', vrf: 'nonprod' }
+
+aps:
+  - {schema: 'global', template: 'prod', anp: 'prod' }
+  - {schema: 'global', template: 'nonprod', anp: 'nonprod' }
+
+epgs:
+  - {schema: 'global', template: 'prod', anp: 'prod', epg: 'epg01', bd: 'bd01', vrf: 'prod' }
+  - {schema: 'global', template: 'prod', anp: 'prod', epg: 'epg02', bd: 'bd02', vrf: 'prod' }
+  - {schema: 'global', template: 'nonprod', anp: 'nonprod', epg: 'epg03', bd: 'bd03', vrf: 'nonprod' }
+  - {schema: 'global', template: 'nonprod', anp: 'nonprod', epg: 'epg04', bd: 'bd04', vrf: 'nonprod' }
+

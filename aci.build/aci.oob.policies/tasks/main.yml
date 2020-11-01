@@ -1,0 +1,28 @@
+---
+# tasks file for aci.oob.policies
+      - name: aci oob management
+        aci_rest:
+          host: "{{ inventory_hostname }}"
+          username: "{{ username }}"
+          password: "{{ password }}"
+          validate_certs: no
+          path: /api/mo/uni.json
+          method: post
+          content:
+            {
+                "totalCount": "1",
+                "imdata": [
+                    {
+                        "mgmtRsOoBStNode": {
+                            "attributes": {
+                            "addr": "10.230.80.34/24",
+                            "dn": "uni/tn-mgmt/mgmtp-default/oob-default/rsooBStNode-[topology/pod-1/node-105]",
+                            "gw": "10.230.80.1",
+                            "tDn": "topology/pod-1/node-105",
+                            "v6Addr": "::",
+                            "v6Gw": "::"
+                            }
+                        }
+                    }
+                ]
+            }
